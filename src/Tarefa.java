@@ -2,16 +2,13 @@ import java.util.ArrayList;
 
 public class Tarefa {
 
-    private int id;
     private String descricao;
 
-    public Tarefa (int id, String descricao){
-        this.id = id;
+    public Tarefa (String descricao){
+        if (descricao == null || descricao.isBlank()) {
+            throw new IllegalArgumentException("Descrição não pode estar vazia");
+        }
         this.descricao = descricao;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getDescricao() {
@@ -19,6 +16,6 @@ public class Tarefa {
     }
 
     public String toString() {
-        return id + " - " + descricao;
+        return " - " + descricao;
     }
 }

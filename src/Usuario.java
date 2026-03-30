@@ -1,11 +1,20 @@
-import javax.naming.CompositeName;
 import java.util.ArrayList;
 
 public class Usuario {
     private String nome;
-    private ArrayList<String> listaTarefas;
+    private ArrayList<Tarefa> listaTarefas;
 
-    public Usuario(String nome) {
+    private void validacao(String nomeUser, Tarefa descricaoTarefa){
+        if (nomeUser == null || nomeUser.isBlank()){
+            throw new IllegalArgumentException("O campo usuario não pode estar vazio");
+        }
+        if (descricaoTarefa == null){
+            throw new IllegalArgumentException("O campo tarefa não pode estar vazio");
+        }
+    }
+
+    public Usuario(String nome) {;
+        validacao(nome, null);
         this.nome = nome;
         this.listaTarefas = new ArrayList<>();
     }
@@ -14,11 +23,12 @@ public class Usuario {
         return nome;
     }
 
-    public ArrayList<String> getListaTarefas() {
-        return listaTarefas;
+    public ArrayList<Tarefa> getListaTarefas() {
+        return new ArrayList<Tarefa>(listaTarefas);
     }
 
-    public void adicionarTarefa(String tarefa) {
+    public void adicionarTarefa(Tarefa tarefa) {
+        validacao(null, tarefa);
         listaTarefas.add(tarefa);
     }
 
