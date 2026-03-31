@@ -4,17 +4,20 @@ public class Usuario {
     private String nome;
     private ArrayList<Tarefa> listaTarefas;
 
-    private void validacao(String nomeUser, Tarefa descricaoTarefa){
-        if (nomeUser == null || nomeUser.isBlank()){
+    private void validarNome(String nomeUser) {
+        if (nomeUser == null || nomeUser.isBlank()) {
             throw new IllegalArgumentException("O campo usuario não pode estar vazio");
         }
+    }
+
+    private void validarDescricacao(Tarefa descricaoTarefa){
         if (descricaoTarefa == null){
             throw new IllegalArgumentException("O campo tarefa não pode estar vazio");
         }
     }
 
-    public Usuario(String nome) {;
-        validacao(nome, null);
+    public Usuario(String nome) {
+        validarNome(nome);
         this.nome = nome;
         this.listaTarefas = new ArrayList<>();
     }
@@ -28,7 +31,7 @@ public class Usuario {
     }
 
     public void adicionarTarefa(Tarefa tarefa) {
-        validacao(null, tarefa);
+        validarDescricacao(tarefa);
         listaTarefas.add(tarefa);
     }
 
