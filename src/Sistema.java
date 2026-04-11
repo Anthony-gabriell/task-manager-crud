@@ -9,6 +9,7 @@ public class Sistema {
 
         System.out.println("Digite seu nome:");
         String usuario = teclado.nextLine();
+        Usuario n1 = new Usuario(usuario);
         Service u1 = new Service();
         String novaTarefa;
         int opcao = 0;
@@ -28,9 +29,17 @@ public class Sistema {
             switch (opcao) {
                 case 1:
                     do {
-                        System.out.println("Digite o nome da tarefa:");
+                        System.out.println("Digite a descrição da tarefa:");
                         Tarefa tarefa = new Tarefa(teclado.nextLine());
                         u1.adicionarTarefa(tarefa);
+
+                        try{
+                            tarefa.verificarDescricao();
+                        }
+                        catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                            break;
+                        }
 
                         System.out.println("Deseja adicionar nova tarefa, digite S (sim) ou N (não)");
                         novaTarefa = teclado.nextLine();
@@ -44,26 +53,35 @@ public class Sistema {
                     break;
 
                 case 2:
-                    if (u1.getListaTarefas().isEmpty()) {
-                        System.out.println("Lista vazia, por favor adicione uma tarefa.");
+                    try{
+                        u1.verificarListaVazia();
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
                         break;
                     }
+
                     System.out.println("Suas tarefas são:");
                     u1.listarTarefas();
                     System.out.println("Selecione a tarefa que deseja remover:");
                     int rmTarefa = teclado.nextInt();
 
-                    if (rmTarefa < 0 || rmTarefa >= u1.getListaTarefas().size()) {
-                        System.out.println("Opção invalida!");
-                        break;
-                    }
-                        System.out.println("Item excluido com sucesso!");
-                        u1.removerTarefa(rmTarefa);
-                        break;
+                try {
+                    u1.removerTarefa(rmTarefa);
+                }
+                catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    break;
+                }
+                System.out.println("Item excluido com sucesso!");
+                break;
 
                 case 3:
-                    if (u1.getListaTarefas().isEmpty()) {
-                        System.out.println("Lista vazia, por favor adicione uma tarefa.");
+                    try{
+                        u1.verificarListaVazia();
+                    }
+                    catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
                         break;
                     }
                     System.out.println("Suas tarefas são:");
