@@ -9,8 +9,7 @@ public class Sistema {
 
         System.out.println("Digite seu nome:");
         String usuario = teclado.nextLine();
-        Usuario u1 = new Usuario(usuario);
-        String tarefa;
+        Service u1 = new Service();
         String novaTarefa;
         int opcao = 0;
 
@@ -30,7 +29,7 @@ public class Sistema {
                 case 1:
                     do {
                         System.out.println("Digite o nome da tarefa:");
-                        tarefa = teclado.nextLine();
+                        Tarefa tarefa = new Tarefa(teclado.nextLine());
                         u1.adicionarTarefa(tarefa);
 
                         System.out.println("Deseja adicionar nova tarefa, digite S (sim) ou N (não)");
@@ -77,75 +76,4 @@ public class Sistema {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
