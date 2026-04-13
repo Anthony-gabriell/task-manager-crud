@@ -5,8 +5,6 @@ import Atech.ListaTarefa.model.Tarefa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository // Indica que esta interface é responsável pelo acesso aos dados
 public interface TarefaRepository extends JpaRepository <Tarefa, Long> {
 }

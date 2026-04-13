@@ -12,7 +12,7 @@ public class Tarefa {
 
     private String descricao;
 
-    @ManyToOne // Indica relacionamento: Muitas tarefas para um usuário
+    @ManyToOne(cascade = CascadeType.ALL) // Indica relacionamento: Muitas tarefas para um usuário e ALL' diz: se o usuário for novo, salve-o antes da tarefa
     @JoinColumn(name = "usuario_id") // Nome da coluna estrangeira no banco
     private Usuario usuario;
 
