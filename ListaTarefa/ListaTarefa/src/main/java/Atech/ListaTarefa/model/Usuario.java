@@ -1,6 +1,7 @@
 package Atech.ListaTarefa.model;
 
 // Abaixo eu tengo os Imports as anotações do banco de dados
+import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,8 @@ public class Usuario {
 
     // ABAIXO A LISTA DE CONSTRUTORES
     // Construtor vazio, Obrigatório para o JPA/Hibernate funcionar
+    @JsonCreator // orienta o Jackson a usar o construtor vazio para desserializar objetos apenas pelo ID.
+    // Isso evita chamadas indevidas a validadores de outros campos (como o nome), prevenindo erros 400.
     public Usuario() {
     }
 
