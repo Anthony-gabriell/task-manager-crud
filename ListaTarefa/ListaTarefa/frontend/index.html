@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATECH — Task Management System</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Index-specific layout ── */
+    .welcome-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .logo-area {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .logo-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+
+    /* SVG circuit-tree icon drawn with CSS */
+    .circuit-tree {
+      width: 72px;
+      height: 72px;
+      filter: drop-shadow(0 0 8px rgba(0,212,200,.7));
+    }
+
+    .welcome-form {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .welcome-form .card {
+      border-left: 3px solid var(--accent-cyan);
+    }
+
+    .welcome-form h2 {
+      margin-bottom: 1.75rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+    }
+
+    .enter-btn {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.85rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .enter-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(0,212,200,.15), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+
+    .enter-btn:hover::after {
+      transform: translateX(100%);
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      text-align: center;
+    }
+
+    #msg-area { margin-top: 1rem; min-height: 2.5rem; }
+  </style>
+</head>
+<body>
+  <div class="welcome-wrapper">
+
+    <!-- Logo -->
+    <div class="logo-area">
+      <div class="logo-icon">
+        <svg class="circuit-tree" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- trunk -->
+          <line x1="36" y1="64" x2="36" y2="36" stroke="#00d4c8" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- main branches -->
+          <line x1="36" y1="36" x2="16" y2="22" stroke="#00d4c8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="36" y1="36" x2="56" y2="22" stroke="#00d4c8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="36" y1="44" x2="22" y2="36" stroke="#00d4c8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="36" y1="44" x2="50" y2="36" stroke="#00d4c8" stroke-width="2" stroke-linecap="round"/>
+          <!-- sub-branches -->
+          <line x1="16" y1="22" x2="10" y2="14" stroke="#00d4c8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="16" y1="22" x2="22" y2="13" stroke="#00d4c8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="56" y1="22" x2="50" y2="13" stroke="#00d4c8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="56" y1="22" x2="62" y2="14" stroke="#00d4c8" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- nodes -->
+          <circle cx="36" cy="64" r="3" fill="#00d4c8"/>
+          <circle cx="36" cy="36" r="3" fill="#00d4c8"/>
+          <circle cx="36" cy="44" r="2.5" fill="#00a8a0"/>
+          <circle cx="16" cy="22" r="2.5" fill="#00d4c8"/>
+          <circle cx="56" cy="22" r="2.5" fill="#00d4c8"/>
+          <circle cx="22" cy="36" r="2" fill="#00a8a0"/>
+          <circle cx="50" cy="36" r="2" fill="#00a8a0"/>
+          <circle cx="10" cy="14" r="2" fill="#00d4c8"/>
+          <circle cx="22" cy="13" r="2" fill="#00d4c8"/>
+          <circle cx="50" cy="13" r="2" fill="#00d4c8"/>
+          <circle cx="62" cy="14" r="2" fill="#00d4c8"/>
+          <!-- base line -->
+          <line x1="24" y1="64" x2="48" y2="64" stroke="#00d4c8" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-text">ATECH</div>
+      <div class="logo-sub">Task Management System</div>
+    </div>
+
+    <!-- Login card -->
+    <div class="welcome-form">
+      <div class="card">
+        <h2>// Initialize Session</h2>
+
+        <form id="login-form" autocomplete="off">
+          <div class="form-group">
+            <label for="user-name">Your Name</label>
+            <input
+              type="text"
+              id="user-name"
+              placeholder="e.g. Gabriel Silva"
+              maxlength="60"
+              required
+              autofocus
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary enter-btn" id="enter-btn">
+            <span id="btn-label">Enter System</span>
+            <span id="btn-spinner" class="spinner" style="display:none;"></span>
+          </button>
+        </form>
+
+        <div id="msg-area"></div>
+      </div>
+    </div>
+
+    <p class="footer-note">// ATECH INTERNAL SYSTEMS v1.0 // AUTHORIZED USE ONLY</p>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:8080';
+
+    const form       = document.getElementById('login-form');
+    const nameInput  = document.getElementById('user-name');
+    const enterBtn   = document.getElementById('enter-btn');
+    const btnLabel   = document.getElementById('btn-label');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const msgArea    = document.getElementById('msg-area');
+
+    function showMsg(text, type = 'error') {
+      msgArea.innerHTML = `<div class="alert alert-${type}">${text}</div>`;
+    }
+
+    function clearMsg() { msgArea.innerHTML = ''; }
+
+    function setLoading(on) {
+      enterBtn.disabled = on;
+      btnLabel.textContent = on ? 'Connecting...' : 'Enter System';
+      btnSpinner.style.display = on ? 'inline-block' : 'none';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMsg();
+
+      const nome = nameInput.value.trim();
+      if (!nome) { showMsg('Please enter your name.'); return; }
+
+      setLoading(true);
+
+      try {
+        const res = await fetch(`${API_BASE}/usuarios`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome }),
+        });
+
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error(err || `Server error (${res.status})`);
+        }
+
+        const user = await res.json();
+
+        sessionStorage.setItem('userId',   user.id);
+        sessionStorage.setItem('userName', user.nome);
+
+        showMsg(`Welcome, ${user.nome}. Redirecting...`, 'success');
+
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 700);
+
+      } catch (err) {
+        showMsg(`Connection failed: ${err.message}`);
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

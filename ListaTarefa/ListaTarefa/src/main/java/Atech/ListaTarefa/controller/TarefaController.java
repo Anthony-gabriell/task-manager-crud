@@ -22,9 +22,9 @@ public class TarefaController {
     }
 
     @PostMapping // POST: Usado para criar uma nova tarefa
-    public void adicionarTarefa(@RequestBody Tarefa tarefa){
-        // @RequestBody indica que o JSON enviado pelo clinete deve ser convertido em objeto Tarefa
-        tarefaService.adicionarTarefa(tarefa);
+    public Tarefa adicionarTarefa(@RequestBody Tarefa tarefa) { // indica ao Spring que os dados enviados no corpo da requisição JSON
+// devem ser convertidos automaticamente para um objeto Tarefa
+        return tarefaService.adicionarTarefa(tarefa);
     }
 
     @GetMapping// GET: usado para buscar e listar as tarefas

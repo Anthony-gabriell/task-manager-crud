@@ -15,9 +15,9 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void adicionarUsuario (Usuario usuario) {
+    public Usuario adicionarUsuario (Usuario usuario) {
         validarUsuario(usuario);
-        usuarioRepository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> listarUsuario() {

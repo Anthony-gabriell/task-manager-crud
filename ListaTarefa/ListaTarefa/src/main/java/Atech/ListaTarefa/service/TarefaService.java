@@ -24,7 +24,7 @@ public class TarefaService {
     }
 
     // Metodo para salvar uma nova tarefa
-    public void adicionarTarefa(Tarefa tarefa) {
+    public Tarefa adicionarTarefa(Tarefa tarefa) {
         Long idUsuario = tarefa.getUsuario().getId(); // pega o ID do usuário que veio no JSON.
 
         Usuario usuario = usuarioRepository.findById(idUsuario) // busca o usuário no banco. Retorna um Optional um objeto que pode ou não ter valor.
@@ -32,7 +32,7 @@ public class TarefaService {
 
         tarefa.setUsuario(usuario); // substitui o usuário parcial que veio do JSON pelo usuário completo que veio do banco.
         validarDescricacao(tarefa);
-        tarefaRepository.save(tarefa); //salva com o vínculo correto.
+       return tarefaRepository.save(tarefa); //salva com o vínculo correto.
     }
 
     // Metodo para buscar todas as tarefas do banco

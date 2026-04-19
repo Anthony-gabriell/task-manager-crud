@@ -19,8 +19,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public void adicionarUsuario (@RequestBody Usuario usuario) {
-        usuarioService.adicionarUsuario(usuario);
+    public Usuario adicionarUsuario(@RequestBody Usuario usuario) { // Requesbody indica ao Spring que os dados enviados no corpo da requisição JSON
+// devem ser convertidos automaticamente para um objeto Tarefa
+        return usuarioService.adicionarUsuario(usuario);
     }
 
     @GetMapping
